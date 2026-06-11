@@ -51,7 +51,7 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             label = "JP_EQUAL";
-            bindings = <&kp UNDER>>;
+            bindings = <&kp UNDER>;
         };
 
         jp_plus: jp_plus {
