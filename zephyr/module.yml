@@ -1,0 +1,5 @@
+name:zmk-behavior-jpkeysforuslayout
+
+build:
+  settings:
+    dts_root: .
