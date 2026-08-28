@@ -1,8 +1,10 @@
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
 
 #include <zmk/studio/custom.h>
+#include <cormoran/runtime_combo/runtime_combo.h>
 
 static bool is_custom_settings_subsystem(uint8_t index) {
     size_t subsystem_count;
@@ -20,6 +22,10 @@ static bool is_custom_settings_subsystem(uint8_t index) {
 }
 
 int __real_raise_zmk_studio_custom_notification(struct zmk_studio_custom_notification data);
+int __real_zmk_runtime_combo_write(uint32_t index,
+                                   const struct zmk_runtime_combo_config *combo,
+                                   bool persist);
+int __real_zmk_runtime_combo_write_name(uint32_t index, const char *name, bool persist);
 
 int __wrap_raise_zmk_studio_custom_notification(struct zmk_studio_custom_notification data) {
     if (is_custom_settings_subsystem(data.subsystem_index)) {
@@ -27,4 +33,16 @@ int __wrap_raise_zmk_studio_custom_notification(struct zmk_studio_custom_notific
     }
 
     return __real_raise_zmk_studio_custom_notification(data);
+}
+
+int __wrap_zmk_runtime_combo_write(uint32_t index,
+                                   const struct zmk_runtime_combo_config *combo,
+                                   bool persist) {
+    ARG_UNUSED(persist);
+    return __real_zmk_runtime_combo_write(index, combo, true);
+}
+
+int __wrap_zmk_runtime_combo_write_name(uint32_t index, const char *name, bool persist) {
+    ARG_UNUSED(persist);
+    return __real_zmk_runtime_combo_write_name(index, name, true);
 }
