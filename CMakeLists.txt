@@ -4,5 +4,6 @@ if(CONFIG_ZMK_RUNTIME_COMBO_STUDIO_RPC)
     "-Wl,--wrap=raise_zmk_studio_custom_notification"
     "-Wl,--wrap=zmk_runtime_combo_write"
     "-Wl,--wrap=zmk_runtime_combo_write_name"
+    "-Wl,--wrap=zmk_custom_setting_write_array_element"
   )
 endif()
